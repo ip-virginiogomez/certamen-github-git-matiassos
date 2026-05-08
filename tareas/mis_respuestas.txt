@@ -1,0 +1,39 @@
+================================================================
+CERTAMEN GIT Y GITHUB - PREGUNTAS TEÓRICO-PRÁCTICAS
+================================================================
+
+Responde cada pregunta directamente en este archivo, debajo de
+cada enunciado. Luego guarda, haz add y commit.
+
+----------------------------------------------------------------
+PREGUNTA 1 (5 pts)
+¿Cuál es la diferencia entre "git add" y "git commit"?
+
+Tu respuesta:
+[Escribe aquí]
+
+----------------------------------------------------------------
+PREGUNTA 2 (5 pts)
+¿Qué hace el comando "git pull"? ¿Cuándo debes usarlo?
+
+Tu respuesta:
+[Escribe aquí]
+
+----------------------------------------------------------------
+PREGUNTA 3 (5 pts)
+¿Qué diferencia hay entre un repositorio local y uno remoto?
+
+Tu respuesta:
+[Escribe aquí]
+
+----------------------------------------------------------------
+PREGUNTA 4 (5 pts)
+Escribe la secuencia completa de comandos para subir un nuevo
+archivo llamado "datos.csv" a GitHub (desde git add hasta push):
+
+Tu respuesta:
+[Escribe aquí]
+
+----------------------------------------------------------------
+FIN DEL ARCHIVO
+================================================================

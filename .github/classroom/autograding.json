@@ -1,0 +1,74 @@
+{
+  "tests": [
+    {
+      "name": "Existe archivo presentacion.md",
+      "setup": "",
+      "run": "test -f presentacion.md",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 20
+    },
+    {
+      "name": "presentacion.md tiene contenido (no está vacío)",
+      "setup": "",
+      "run": "test -s presentacion.md",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 10
+    },
+    {
+      "name": "Existe archivo tareas/mis_respuestas.txt",
+      "setup": "",
+      "run": "test -f tareas/mis_respuestas.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 10
+    },
+    {
+      "name": "mis_respuestas.txt fue modificado (no tiene [Escribe aquí])",
+      "setup": "",
+      "run": "grep -v '\\[Escribe aquí\\]' tareas/mis_respuestas.txt | grep -q '[a-zA-Z]'",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 20
+    },
+    {
+      "name": "Existe archivo historial.txt",
+      "setup": "",
+      "run": "test -f historial.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 10
+    },
+    {
+      "name": "El repositorio tiene al menos 3 commits",
+      "setup": "",
+      "run": "test $(git log --oneline | wc -l) -ge 3",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 20
+    },
+    {
+      "name": "Existe carpeta evidencia",
+      "setup": "",
+      "run": "test -d evidencia",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 10
+    }
+  ]
+}

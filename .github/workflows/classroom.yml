@@ -1,0 +1,112 @@
+name: GitHub Classroom Workflow
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Verificar archivos entregados
+        run: |
+          echo "=== Archivos en el repositorio ==="
+          find . -not -path './.git/*' -type f | sort
+          echo ""
+          echo "=== Historial de commits ==="
+          git log --oneline
+
+      - name: Test 1 - Existe presentacion.md
+        id: test1
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Existe archivo presentacion.md
+          setup-command: ""
+          command: test -f presentacion.md
+          timeout: 10
+          max-score: 20
+
+      - name: Test 2 - presentacion.md tiene contenido
+        id: test2
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: presentacion.md tiene contenido
+          setup-command: ""
+          command: test -s presentacion.md
+          timeout: 10
+          max-score: 10
+
+      - name: Test 3 - Existe mis_respuestas.txt
+        id: test3
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Existe tareas/mis_respuestas.txt
+          setup-command: ""
+          command: test -f tareas/mis_respuestas.txt
+          timeout: 10
+          max-score: 10
+
+      - name: Test 4 - Respuestas completadas
+        id: test4
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Las respuestas fueron completadas
+          setup-command: ""
+          command: "! grep -q '\\[Escribe aquí\\]' tareas/mis_respuestas.txt"
+          timeout: 10
+          max-score: 20
+
+      - name: Test 5 - Existe historial.txt
+        id: test5
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Existe archivo historial.txt
+          setup-command: ""
+          command: test -f historial.txt
+          timeout: 10
+          max-score: 10
+
+      - name: Test 6 - Al menos 3 commits
+        id: test6
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: El repositorio tiene al menos 3 commits
+          setup-command: ""
+          command: "[ $(git log --oneline | wc -l) -ge 3 ]"
+          timeout: 10
+          max-score: 20
+
+      - name: Test 7 - Carpeta evidencia existe
+        id: test7
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Existe la carpeta evidencia
+          setup-command: ""
+          command: test -d evidencia
+          timeout: 10
+          max-score: 10
+
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          TEST1_RESULTS: "${{ steps.test1.outputs.result }}"
+          TEST2_RESULTS: "${{ steps.test2.outputs.result }}"
+          TEST3_RESULTS: "${{ steps.test3.outputs.result }}"
+          TEST4_RESULTS: "${{ steps.test4.outputs.result }}"
+          TEST5_RESULTS: "${{ steps.test5.outputs.result }}"
+          TEST6_RESULTS: "${{ steps.test6.outputs.result }}"
+          TEST7_RESULTS: "${{ steps.test7.outputs.result }}"
+        with:
+          runners: test1,test2,test3,test4,test5,test6,test7
